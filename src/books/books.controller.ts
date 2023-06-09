@@ -1,13 +1,47 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { BooksService } from './books.service';
-import { Book } from './books.types';
+import { BookDocument } from './schemas/book.schema';
+import { CreateBookDto } from './interfaces/dto/create-book';
+import { IParamId } from 'src/types';
+import { UpdateBookDto } from './interfaces/dto/update-book';
+import { QueryWithHelpers, HydratedDocument } from 'mongoose'
 
 @Controller('books')
 export class BooksController {
   constructor(private readonly booksService: BooksService) {}
 
   @Get('/')
-  public getBooks(): Book[] {
-    return this.booksService.books;
+  public getBooks(): Promise<BookDocument[]> {
+    return this.booksService.getAll();
+  }
+
+  @Post('/')
+  public create(@Body() body: CreateBookDto): Promise<BookDocument> {
+    return this.booksService.create(body);
+  }
+
+  @Put(':id')
+  public update(
+    @Param() { id }: IParamId,
+    @Body() body: UpdateBookDto
+  ): QueryWithHelpers<
+    HydratedDocument<BookDocument, {}, {}> | null,
+    HydratedDocument<BookDocument, {}, {}>,
+    {},
+    BookDocument
+  > {
+    return this.booksService.update(id, body);
+  }
+
+  @Delete(':id')
+  public delete(
+    @Param() { id }: IParamId,
+  ): QueryWithHelpers<
+    HydratedDocument<BookDocument, {}, {}> | null,
+    HydratedDocument<BookDocument, {}, {}>,
+    {},
+    BookDocument
+  > {
+    return this.booksService.delete(id);
   }
 }

@@ -1,0 +1,1 @@
+export type IParamId = { id: string }
