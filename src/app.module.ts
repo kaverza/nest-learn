@@ -13,7 +13,7 @@ import { BooksModule } from './books/books.module';
     MongooseModule.forRoot(process.env.MONGO_CONNECTION),
     BooksModule,
   ],
-  controllers: [AppController, BooksController],
-  providers: [AppService, BooksService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
