@@ -1,11 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseInterceptors } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { BookDocument } from './schemas/book.schema';
 import { CreateBookDto } from './interfaces/dto/create-book';
 import { IParamId } from 'src/types';
 import { UpdateBookDto } from './interfaces/dto/update-book';
 import { QueryWithHelpers, HydratedDocument } from 'mongoose'
+import { ExceptionsInterceptor } from 'src/interceptors/exceptions.interceptor';
 
+@UseInterceptors(ExceptionsInterceptor)
 @Controller('books')
 export class BooksController {
   constructor(private readonly booksService: BooksService) {}
