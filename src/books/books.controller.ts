@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseInterceptors, UsePipes } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { BookDocument } from './schemas/book.schema';
 import { CreateBookDto } from './interfaces/dto/create-book';
@@ -7,6 +7,7 @@ import { UpdateBookDto } from './interfaces/dto/update-book';
 import { QueryWithHelpers, HydratedDocument } from 'mongoose'
 import { ExceptionsInterceptor } from 'src/interceptors/exceptions.interceptor';
 import { LengthValidataionPipe } from 'src/pipes/length.validation.pipe';
+import { ValidationPipe } from 'src/pipes/validation.pipe';
 
 @UseInterceptors(ExceptionsInterceptor)
 @Controller('books')
@@ -25,6 +26,7 @@ export class BooksController {
     return this.booksService.create(body);
   }
 
+  @UsePipes(new ValidationPipe())
   @Put(':id')
   public update(
     @Param() { id }: IParamId,
