@@ -6,6 +6,7 @@ import { IParamId } from 'src/types';
 import { UpdateBookDto } from './interfaces/dto/update-book';
 import { QueryWithHelpers, HydratedDocument } from 'mongoose'
 import { ExceptionsInterceptor } from 'src/interceptors/exceptions.interceptor';
+import { LengthValidataionPipe } from 'src/pipes/length.validation.pipe';
 
 @UseInterceptors(ExceptionsInterceptor)
 @Controller('books')
@@ -18,7 +19,9 @@ export class BooksController {
   }
 
   @Post('/')
-  public create(@Body() body: CreateBookDto): Promise<BookDocument> {
+  public create(
+    @Body(new LengthValidataionPipe('title', 2, 300)) body: CreateBookDto
+  ): Promise<BookDocument> {
     return this.booksService.create(body);
   }
 
