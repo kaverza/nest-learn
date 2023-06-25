@@ -34,10 +34,21 @@ export class AuthService {
       const { password: _, ...result } = user;
 
       return {
-        access_token: await this.jwtService.signAsync(result),
+        access_token: this.jwtService.sign(result),
       };
     }
 
     throw new UnauthorizedException('Неверный логин или пароль');
+  }
+
+  public async validateUser(email: string): Promise<ShortUser> {
+    const user = await this.usersService.findOne(email);
+    if (!user) {
+      return null;
+    }
+
+    const { password: _, ...result } = user;
+
+    return result;
   }
 }
