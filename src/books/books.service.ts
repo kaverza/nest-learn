@@ -1,7 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel, InjectConnection } from '@nestjs/mongoose';
 import { Book, BookDocument } from './schemas/book.schema';
-import { Model, Connection, QueryWithHelpers, HydratedDocument } from 'mongoose'
+import {
+  Model,
+  Connection,
+  QueryWithHelpers,
+  HydratedDocument,
+} from 'mongoose';
 import { CreateBookDto } from './interfaces/dto/create-book';
 import { UpdateBookDto } from './interfaces/dto/update-book';
 

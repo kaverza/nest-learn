@@ -1,6 +1,6 @@
-export type IParamId = { id: string }
+export type IParamId = { id: string };
 
 export enum Status {
-    Success = 'success',
-    Fail = 'fail'
+  Success = 'success',
+  Fail = 'fail',
 }
