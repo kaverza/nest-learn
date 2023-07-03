@@ -15,9 +15,9 @@ import { CreateBookDto } from './interfaces/dto/create-book';
 import { IParamId } from 'src/types';
 import { UpdateBookDto } from './interfaces/dto/update-book';
 import { QueryWithHelpers, HydratedDocument } from 'mongoose';
-import { ExceptionsInterceptor } from 'src/interceptors/exceptions.interceptor';
-import { LengthValidataionPipe } from 'src/pipes/length.validation.pipe';
-import { ValidationPipe } from 'src/pipes/validation.pipe';
+import { ExceptionsInterceptor } from '../interceptors/exceptions.interceptor';
+import { LengthValidataionPipe } from '../pipes/length.validation.pipe';
+import { ValidationPipe } from '../pipes/validation.pipe';
 
 @UseInterceptors(ExceptionsInterceptor)
 @Controller('books')
